@@ -1,0 +1,580 @@
+<Window x:Class="AuroraSuite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Aurora Suite" Height="900" Width="1080" MinHeight="650" MinWidth="820"
+        Background="{DynamicResource Brush.WindowBg}"
+        Foreground="{DynamicResource Brush.Text}"
+        WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="False">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="38" ResizeBorderThickness="5" CornerRadius="0" GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ===================== Title bar ===================== -->
+        <Grid Grid.Row="0" Background="{DynamicResource Brush.PanelBgAlt}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="12,0,0,0" VerticalAlignment="Center">
+                <Ellipse Width="10" Height="10" Fill="{DynamicResource Brush.Accent}"/>
+                <TextBlock Text="AURORA SUITE" Margin="8,0,0,0" FontSize="12" FontWeight="SemiBold"
+                           Foreground="{DynamicResource Brush.Text}" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="&#xE921;" FontFamily="Segoe MDL2 Assets" FontSize="10" Style="{StaticResource ChromeButton}" Click="Minimize_Click"/>
+                <Button Content="&#xE922;" FontFamily="Segoe MDL2 Assets" FontSize="10" Style="{StaticResource ChromeButton}" Click="Maximize_Click"/>
+                <Button Content="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10" Style="{StaticResource ChromeButton}" Click="Close_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="14">
+        <TabControl x:Name="RootTabs">
+
+            <!-- ===================== SYNC TAB ===================== -->
+            <TabItem Header="SYNC">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Expander Header="CONSOLE CONNECTION" Grid.Row="0" Margin="0,0,0,10" IsExpanded="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Which protocol actually does the uploading. -->
+                            <Label Content="Sync using:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="TransportComboBox" Grid.Row="0" Grid.Column="1" Margin="4,4,10,4"
+                                      SelectionChanged="TransportComboBox_SelectionChanged">
+                                <ComboBoxItem Content="FTP"/>
+                                <ComboBoxItem Content="XBDM"/>
+                            </ComboBox>
+                            <TextBlock x:Name="TransportHintText" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4"
+                                       VerticalAlignment="Center" Margin="6,4,4,4" TextWrapping="Wrap"
+                                       Style="{StaticResource MutedText}"/>
+
+                            <Label Content="IP:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="IpTextBox" Grid.Row="1" Grid.Column="1" Margin="4,4,10,4" VerticalContentAlignment="Center"/>
+                            <Label x:Name="FtpPortLabel" Content="FTP port:" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
+                            <TextBox x:Name="PortTextBox" Grid.Row="1" Grid.Column="3" Margin="4" VerticalContentAlignment="Center"/>
+                            <Button x:Name="ConnectButton" Content="Test Connection (FTP)" Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="1" Grid.Column="4" Margin="10,4,4,4" Click="ConnectButton_Click"/>
+                            <TextBlock x:Name="StatusText" Grid.Row="1" Grid.Column="5" VerticalAlignment="Center"
+                                       Margin="6,4,4,4" Text="Not connected" Style="{StaticResource MutedText}"/>
+
+                            <!-- FTP only. XBDM has no login of any kind, so these grey out. -->
+                            <Label x:Name="UsernameLabel" Content="Username:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="UsernameTextBox" Grid.Row="2" Grid.Column="1" Margin="4,4,10,4" VerticalContentAlignment="Center"/>
+                            <Label x:Name="PasswordLabel" Content="Password:" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"/>
+                            <PasswordBox x:Name="PasswordBox" Grid.Row="2" Grid.Column="3" Margin="4" VerticalContentAlignment="Center"/>
+                            <TextBlock x:Name="CredentialsHintText" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
+                                       VerticalAlignment="Center" Margin="10,4,4,4" TextWrapping="Wrap"
+                                       Style="{StaticResource MutedText}"/>
+
+                            <Label Content="XBDM host:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="XbdmTextBox" Grid.Row="3" Grid.Column="1" Margin="4,4,10,4" VerticalContentAlignment="Center"
+                                     ToolTip="Console name or IP for XBDM. Leave blank to use the IP above."/>
+                            <Label Content="XBDM port:" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center"/>
+                            <TextBox x:Name="XbdmPortTextBox" Grid.Row="3" Grid.Column="3" Margin="4" VerticalContentAlignment="Center"
+                                     ToolTip="xbdm listens on 730 by default"/>
+                            <Button x:Name="XbdmConnectButton" Content="Test Connection (XBDM)" Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="3" Grid.Column="4" Margin="10,4,4,4" Click="XbdmConnectButton_Click"/>
+                            <TextBlock x:Name="XbdmStatusText" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center"
+                                       Margin="6,4,4,4" Text="Not connected" Style="{StaticResource MutedText}"/>
+                        </Grid>
+                    </Expander>
+
+                    <Expander Header="PATHS" Grid.Row="1" Margin="0,0,0,10" IsExpanded="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Aurora GameData path:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="AuroraPathTextBox" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="4" VerticalContentAlignment="Center"/>
+                            <Button x:Name="BrowseAuroraPathButton" Content="Browse..." Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="0" Grid.Column="3" Margin="4" Click="BrowseAuroraPathButton_Click"/>
+
+                            <Label Content="Local library folder:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="LibraryPathTextBox" Grid.Row="1" Grid.Column="1" Margin="4" VerticalContentAlignment="Center"/>
+                            <Button x:Name="BrowseLibraryButton" Content="Browse..." Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="1" Grid.Column="2" Margin="4" Click="BrowseLibraryButton_Click"/>
+                            <Button x:Name="LoadLibraryButton" Content="Load Library" Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="1" Grid.Column="3" Margin="4" Click="LoadLibraryButton_Click"/>
+                        </Grid>
+                    </Expander>
+
+                    <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,10">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <Label Content="Sync types:" VerticalAlignment="Center" Margin="4,0,4,0"/>
+                            <CheckBox x:Name="IconCheckBox" Content="Icon (GL)" IsChecked="False" VerticalAlignment="Center" Margin="4,0,14,0"/>
+                            <CheckBox x:Name="BoxartCheckBox" Content="Boxart (GC)" IsChecked="True" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <CheckBox x:Name="BackgroundCheckBox" Content="Background (BK)" IsChecked="False" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <CheckBox x:Name="ScreenshotCheckBox" Content="Screenshots (SS)" IsChecked="False" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <Button x:Name="ApplyAllButton" Content="Apply All" Style="{StaticResource BtnSecondary}"
+                                    Margin="16,0,0,0" Click="ApplyAllButton_Click"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="OnlyOverwriteCheckBox" Content="Only overwrite files that already exist on the console"
+                                      IsChecked="True" VerticalAlignment="Center" Margin="4,0,20,0"/>
+                            <Button x:Name="SaveSettingsButton" Content="Save Settings" Style="{StaticResource BtnSecondary}"
+                                    Click="SaveSettingsButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,6">
+                        <TextBlock Text="LIBRARY" Style="{StaticResource SectionLabel}" Margin="0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="SelectAllButton" Content="Select All" Style="{StaticResource BtnSecondary}"
+                                    Margin="0,0,8,0" Click="SelectAllButton_Click"/>
+                            <Button x:Name="DeselectAllButton" Content="Deselect All" Style="{StaticResource BtnSecondary}"
+                                    Margin="0,0,16,0" Click="DeselectAllButton_Click"/>
+                            <Button x:Name="SyncButton" Content="Sync Selected" Style="{StaticResource BtnPrimary}"
+                                    Padding="16,7" Click="SyncButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Border Style="{StaticResource GridFrame}" Padding="0">
+                            <DataGrid x:Name="LibraryGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                      IsReadOnly="False" EnableRowVirtualization="True" EnableColumnVirtualization="False"
+                                      VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                                      SelectionMode="Extended" SelectionUnit="FullRow"
+                                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <!-- Include checkbox bound OneWay + Checked/Unchecked handler writing
+                                         directly to the row, rather than a plain TwoWay binding - this is
+                                         the exact pattern XenonArchivist's own grid uses, confirmed there to
+                                         avoid a real WPF DataGrid bug where a checked box can render checked
+                                         without the bound value actually committing back to the row.
+                                         Unlike XenonArchivist (which disables row virtualization outright,
+                                         fine for its tens/low-hundreds of rows), a library here can run into
+                                         the thousands - virtualization stays ON above, which is safe with this
+                                         exact pattern: OneWay always re-reads the real Include value whenever a
+                                         recycled container gets rebound to a different row, so there's no stale
+                                         visual state to worry about the way a naive TwoWay commit could have. -->
+                                    <DataGridTemplateColumn Header="Include" Width="60">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Include, Mode=OneWay}" HorizontalAlignment="Center"
+                                                          Checked="IncludeCheckBox_Changed" Unchecked="IncludeCheckBox_Changed"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Title ID" Binding="{Binding TitleId}" Width="110" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Assets Found" Binding="{Binding AssetsSummary}" Width="140" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" Width="170" IsReadOnly="True">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Syncing...">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Synced">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Success}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Synced (some skipped)">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.LogOrange}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="No match on console">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.LogOrange}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Failed">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Detail / Error" Binding="{Binding Detail}" Width="*" IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                        <TextBlock x:Name="LibraryEmptyText" Style="{StaticResource MutedText}"
+                                   Text="Click &quot;Load Library&quot; above to scan your local library folder and list titles here."
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextWrapping="Wrap" MaxWidth="380" TextAlignment="Center" IsHitTestVisible="False"/>
+                    </Grid>
+
+                    <Grid Grid.Row="5" Margin="0,8,0,4">
+                        <TextBlock Text="LOG" Style="{StaticResource SectionLabel}" Margin="0"/>
+                        <Button x:Name="SaveSyncLogButton" Content="Save Log to .txt" Style="{StaticResource BtnSecondary}"
+                                HorizontalAlignment="Right" Click="SaveSyncLogButton_Click"/>
+                    </Grid>
+
+                    <Border Grid.Row="6" Style="{StaticResource GridFrame}">
+                        <RichTextBox x:Name="LogTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0"
+                                     Foreground="{DynamicResource Brush.Text}"
+                                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                     FontFamily="Consolas" FontSize="11"/>
+                    </Border>
+
+                    <TextBlock x:Name="SummaryText" Grid.Row="7" Margin="4,8,4,0" FontWeight="Bold"/>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== IMAGE ASSETS TAB ===================== -->
+            <TabItem Header="IMAGE ASSETS">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Expander Header="FOLDERS" Grid.Row="0" Margin="0,0,0,10" IsExpanded="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Content="Source folder (Image_Assets):" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="ImgSourceTextBox" Grid.Row="0" Grid.Column="1" Margin="4" VerticalContentAlignment="Center"/>
+                            <Button x:Name="BrowseImgSourceButton" Content="Browse..." Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="0" Grid.Column="2" Margin="4" Click="BrowseImgSourceButton_Click"/>
+
+                            <Label Content="Output folder:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBox x:Name="ImgOutputTextBox" Grid.Row="1" Grid.Column="1" Margin="4" VerticalContentAlignment="Center"/>
+                            <Button x:Name="BrowseImgOutputButton" Content="Browse..." Style="{StaticResource BtnSecondary}"
+                                    Grid.Row="1" Grid.Column="2" Margin="4" Click="BrowseImgOutputButton_Click"/>
+                        </Grid>
+                    </Expander>
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource MutedText}" TextWrapping="Wrap" Margin="4,0,4,10">
+                        Point Source at either ONE title folder, or a parent folder containing many title-ID subfolders - both are auto-detected.
+                        Click "Scan Source" to detect titles into the grid below without converting anything yet, tick which ones to include
+                        (or Select All / Deselect All), then "Convert Selected". Subfolders (Icon/Coverart/Background/Screenshots) always win per
+                        type; anything not covered by a subfolder falls back to a loose named image in the title folder, and a single unrecognized
+                        image becomes the Boxart/Coverart. See the README tab for the full breakdown.
+                    </TextBlock>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                        <Label Content="Convert types:" VerticalAlignment="Center" Margin="4,0,4,0"/>
+                        <CheckBox x:Name="ConvertIconCheckBox" Content="Icon" IsChecked="False" VerticalAlignment="Center" Margin="4,0,14,0"/>
+                        <CheckBox x:Name="ConvertBoxartCheckBox" Content="Boxart" IsChecked="True" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                        <CheckBox x:Name="ConvertBackgroundCheckBox" Content="Background" IsChecked="False" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                        <CheckBox x:Name="ConvertScreenshotsCheckBox" Content="Screenshots" IsChecked="True" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                        <Button x:Name="ScanButton" Content="Scan Source" Style="{StaticResource BtnSecondary}"
+                                Margin="16,0,0,0" Click="ScanButton_Click"/>
+                    </StackPanel>
+
+                    <Grid Grid.Row="3" Margin="0,0,0,6">
+                        <TextBlock Text="DETECTED TITLES" Style="{StaticResource SectionLabel}" Margin="0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="ImgSelectAllButton" Content="Select All" Style="{StaticResource BtnSecondary}"
+                                    Margin="0,0,8,0" Click="ImgSelectAllButton_Click"/>
+                            <Button x:Name="ImgDeselectAllButton" Content="Deselect All" Style="{StaticResource BtnSecondary}"
+                                    Margin="0,0,16,0" Click="ImgDeselectAllButton_Click"/>
+                            <Button x:Name="ConvertButton" Content="Convert Selected" Style="{StaticResource BtnPrimary}"
+                                    Padding="16,7" Click="ConvertButton_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Border Style="{StaticResource GridFrame}" Padding="0">
+                            <DataGrid x:Name="ImageAssetGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                                      IsReadOnly="False" EnableRowVirtualization="True" EnableColumnVirtualization="False"
+                                      VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling"
+                                      SelectionMode="Extended" SelectionUnit="FullRow"
+                                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Include" Width="60">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Include, Mode=OneWay}" HorizontalAlignment="Center"
+                                                          Checked="ImgIncludeCheckBox_Changed" Unchecked="ImgIncludeCheckBox_Changed"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Title ID" Binding="{Binding TitleId}" Width="110" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Detected" Binding="{Binding DetectedSummary}" Width="220" IsReadOnly="True"/>
+                                    <DataGridTextColumn Header="Status" Binding="{Binding StatusText}" Width="170" IsReadOnly="True">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Converting...">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Converted">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Success}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Converted (some skipped)">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.LogOrange}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Nothing detected">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.LogOrange}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding StatusText}" Value="Failed">
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn Header="Detail / Error" Binding="{Binding Detail}" Width="*" IsReadOnly="True"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
+                        <TextBlock x:Name="ImageAssetEmptyText" Style="{StaticResource MutedText}"
+                                   Text="Click &quot;Scan Source&quot; above to detect titles and list them here."
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   TextWrapping="Wrap" MaxWidth="380" TextAlignment="Center" IsHitTestVisible="False"/>
+                    </Grid>
+
+                    <Grid Grid.Row="5" Margin="0,8,0,4">
+                        <TextBlock Text="LOG" Style="{StaticResource SectionLabel}" Margin="0"/>
+                        <Button x:Name="SaveImgLogButton" Content="Save Log to .txt" Style="{StaticResource BtnSecondary}"
+                                HorizontalAlignment="Right" Click="SaveImgLogButton_Click"/>
+                    </Grid>
+
+                    <Border Grid.Row="6" Style="{StaticResource GridFrame}">
+                        <RichTextBox x:Name="ImgLogTextBox" IsReadOnly="True" Background="Transparent" BorderThickness="0"
+                                     Foreground="{DynamicResource Brush.Text}"
+                                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                                     FontFamily="Consolas" FontSize="11"/>
+                    </Border>
+
+                    <TextBlock x:Name="ImgSummaryText" Grid.Row="7" Margin="4,8,4,0" FontWeight="Bold"/>
+                </Grid>
+            </TabItem>
+
+            <!-- ===================== README TAB ===================== -->
+            <TabItem Header="README">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="4,0,10,10">
+
+                        <TextBlock Text="WHAT THIS APP DOES" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Two jobs, two tabs. IMAGE ASSETS turns your picture files (png/jpg/bmp) into the
+                            .asset files Aurora actually reads. SYNC uploads those .asset files to your console
+                            over FTP or XBDM. You generally use Image Assets first, then Sync. Both tabs work the same
+                            way: scan/load into a grid first (nothing happens to your files yet), tick which rows
+                            you want (or Select All / Deselect All), then run the actual action on just those rows.
+                            Every row starts UNCHECKED - with a library that can run into the thousands of titles,
+                            defaulting to checked would mean rows you never scrolled down to see still get acted on.
+                            Status and a per-row Detail/Error column update live as it runs, and both logs have a
+                            "Save Log to .txt" button that writes a timestamped copy next to the exe.
+                        </TextBlock>
+
+                        <TextBlock Text="IMAGE ASSETS - WHAT COUNTS AS ONE &quot;TITLE&quot;" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,6">
+                            A "title folder" is any folder named after a Title ID (like 4B4B0002). Everything the
+                            app looks for - Coverart, Background, Icon, Screenshots - it looks for INSIDE one of
+                            these Title ID folders. You point the Source box at either:
+                        </TextBlock>
+                        <Border Style="{StaticResource GridFrame}" Margin="0,0,0,4">
+                            <TextBlock FontFamily="Consolas" FontSize="12" TextWrapping="Wrap">
+ONE title folder directly:                 A parent folder full of many titles (bulk):
+  4B4B0002\                                  Covers\
+    boxart.png                                 4B4B0002\
+                                                  boxart.png
+                                                5841082A\
+                                                  boxart.png
+                            </TextBlock>
+                        </Border>
+                        <TextBlock TextWrapping="Wrap" Margin="0,6,0,10">
+                            You don't have to tell the app which one it is - it looks at whatever folder you picked:
+                            if THAT folder already has images/subfolders directly inside it, it treats it as ONE
+                            title. If not, it goes one level down and treats every folder inside it as its own
+                            separate title. Either way works, no switch to flip.
+                        </TextBlock>
+
+                        <TextBlock Text="INSIDE ONE TITLE FOLDER - TWO WAYS TO ARRANGE IMAGES" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,6">
+                            Way 1 - just dump the images loose in the title folder, named so the app can tell what
+                            they are:
+                        </TextBlock>
+                        <Border Style="{StaticResource GridFrame}" Margin="0,0,0,10">
+                            <TextBlock FontFamily="Consolas" FontSize="12" TextWrapping="Wrap">
+4B4B0002\
+  icon.png          (also accepts: logo.png)
+  boxart.png        (also accepts: cover.png, box.png)
+  background.png    (also accepts: bg.png, backdrop.png)
+  screenshot1.png   (also accepts: ss1.png, screenshot_02.png, etc.)
+  screenshot2.png
+                            </TextBlock>
+                        </Border>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,6">
+                            Way 2 - put each type in its own subfolder (use this if you've already got separate,
+                            unnamed images for each type):
+                        </TextBlock>
+                        <Border Style="{StaticResource GridFrame}" Margin="0,0,0,10">
+                            <TextBlock FontFamily="Consolas" FontSize="12" TextWrapping="Wrap">
+4B4B0002\
+  Coverart\
+    xxxx.png        (any filename - it just grabs the image in here)
+  Background\
+    xxxx.png
+  Icon\
+    xxxx.png
+  Screenshots\
+    xxxx1.png       (can be MANY images - see below)
+    xxxx2.png
+    xxxx3.png
+                            </TextBlock>
+                        </Border>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            You can mix the two ways in the same title folder too - e.g. a Background\ subfolder
+                            plus a loose boxart.png sitting next to it. Each of the 4 types is figured out
+                            separately, so they don't step on each other.
+                        </TextBlock>
+
+                        <TextBlock Text="THE ONE-IMAGE SPECIAL CASE (your &quot;Covers&quot; dump)" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,6">
+                            If a title folder has just ONE image, with no recognizable name and no matching
+                            subfolder, that lone image is automatically treated as the Coverart. This covers the
+                            simple case where you've only got one picture per game and no naming convention:
+                        </TextBlock>
+                        <Border Style="{StaticResource GridFrame}" Margin="0,0,0,10">
+                            <TextBlock FontFamily="Consolas" FontSize="12" TextWrapping="Wrap">
+Covers\4B4B0002\5502.png   -&gt;  that one image becomes GC4B4B0002.asset (Coverart)
+                            </TextBlock>
+                        </Border>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Rules for that lone image, in order:
+                            (1) A Coverart\ subfolder always wins if it exists - a loose image elsewhere in the
+                            title folder is then left alone and reported in the log as unused, not guessed at.
+                            (2) With no Coverart\ subfolder, if exactly one image is left over after everything
+                            else (Icon/Background/Screenshots, from either subfolders or names) has already
+                            claimed its own images, that one leftover image becomes Coverart.
+                            (3) If there's more than one unclaimed leftover image and no Coverart\ folder, the app
+                            won't guess which one is the cover - none of them get used, and they're listed in the
+                            log so you can see what got skipped.
+                        </TextBlock>
+
+                        <TextBlock Text="SCREENSHOTS ARE DIFFERENT - THEY COMBINE" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Icon, Boxart, and Background only ever use ONE image each - first match wins, extras
+                            are ignored. Screenshots is the only type that can use MANY images: every image found
+                            in a Screenshots\ folder (or every screenshot1.png/screenshot2.png/etc. loose in the
+                            title folder) gets packed together into ONE file, SS&lt;TitleID&gt;.asset, up to 20
+                            screenshots per title.
+                        </TextBlock>
+
+                        <TextBlock Text="WHAT COMES OUT" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Each type becomes its OWN separate file - they're never merged together:
+                            Icon -&gt; GL&lt;TitleID&gt;.asset, Boxart -&gt; GC&lt;TitleID&gt;.asset,
+                            Background -&gt; BK&lt;TitleID&gt;.asset, Screenshots -&gt; SS&lt;TitleID&gt;.asset.
+                            They always land in Output\&lt;TitleID&gt;\ - same layout no matter whether you ran
+                            single-folder or bulk mode. The checkboxes above the Convert button just control which
+                            of the 4 types the app bothers to look for at all; leave one unchecked and that type
+                            is skipped completely even if the images for it are sitting right there.
+                        </TextBlock>
+
+                        <TextBlock Text="SYNC TAB - WHAT IT ACTUALLY DOES" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Console Connection and Paths are collapsible - click their header to fold them shut once
+                            they're filled in, freeing up room for the grid below without needing a bigger window.
+                            Click "Load Library" to scan your "Local library folder" (usually the same Output\ folder
+                            Image Assets just wrote to) and list every Title ID folder found there in the grid below,
+                            along with which asset files (GL/GC/BK/SS) actually exist for each one. Tick the Include
+                            box on whichever rows you want this run (or use Select All / Deselect All), then press
+                            "Sync Selected" - only ticked rows get uploaded, over one connection (FTP or XBDM, whichever
+                            you picked), matching each local Title ID to the matching game folder already on the console. The Sync types
+                            checkboxes above the grid (Icon/Boxart/Background/Screenshots) are a second filter on top
+                            of that - unchecked types are skipped even for a ticked row, even if the .asset file
+                            exists locally. "Apply All" is a shortcut: it ticks all four type checkboxes, reloads the
+                            library, ticks every row, and runs Sync Selected immediately.
+                        </TextBlock>
+
+                        <TextBlock Text="READING THE GRID" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Status and Detail update live as a sync runs. Status: "Pending" hasn't been touched yet
+                            this run, "No match on console" means no game folder on the console matched that Title
+                            ID at all (nothing to upload to), "Synced" means every checked type that exists locally
+                            uploaded cleanly, "Synced (some skipped)" means at least one file was skipped because
+                            "Only overwrite existing" is on and that file didn't already exist on the console, and
+                            "Failed" means at least one upload actually errored. The Detail column spells out exactly
+                            which asset type did what for that row - e.g. "GC uploaded (1048576 bytes); BK skipped
+                            (not on console)" - so you don't have to go dig through the log to know why a specific
+                            title didn't fully sync.
+                        </TextBlock>
+
+                        <TextBlock Text="&quot;ONLY OVERWRITE EXISTING&quot; CHECKBOX" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Checked (the default): a file only gets uploaded if that console already HAS a file
+                            with that exact name in that game's folder - it replaces it, it never creates a brand
+                            new asset slot that wasn't there before. Unchecked: it uploads regardless, creating the
+                            file on the console even if nothing was there before.
+                        </TextBlock>
+
+                        <TextBlock Text="FTP OR XBDM: WHICH TO SYNC WITH" Style="{StaticResource SectionLabel}"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            "Sync using" at the top of Console Connection picks how files actually get uploaded.
+                            Both do the same job; they just take different routes.
+                            <LineBreak/><LineBreak/>
+                            FTP is the original path. It uses Aurora's built-in FTP server, and if that server is
+                            set to ask for a login, you have to supply the username and password it wants.
+                            <LineBreak/><LineBreak/>
+                            XBDM is the alternative, and the reason it's here: the Xbox debug protocol has no
+                            login step at all - no username, no password, nothing to get wrong. If the console
+                            answers on port 730, it will accept the transfer. Turn xbdm on in DashLaunch and pick
+                            XBDM here. The username and password boxes grey out, because XBDM genuinely never
+                            uses them.
+                            <LineBreak/><LineBreak/>
+                            Each has its own Test Connection button, and each tests exactly what that transport
+                            does when syncing: connect, find your GameData folder, and count the title folders in
+                            it. If the test passes, syncing over it will work.
+                            <LineBreak/><LineBreak/>
+                            You can type the GameData path in either style - /Hdd1/Aurora_0.7b/Data/GameData or
+                            Hdd:\Aurora_0.7b\Data\GameData. XBDM asks the console which drives it actually has and
+                            converts the path to match, so the same setting works for both transports.
+                        </TextBlock>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+        </TabControl>
+        </Grid>
+    </Grid>
+</Window>

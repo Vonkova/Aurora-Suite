@@ -1,0 +1,76 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        Structural colors: identical across every theme in the theme dropdown.
+        Only the Accent brushes below get swapped per-theme by ThemeManager at runtime
+        (see Themes/ThemeManager.cs) - matches the README: "Purely cosmetic; nothing
+        functional changes between themes."
+    -->
+    <Color x:Key="Color.WindowBg">#0B0E14</Color>
+    <Color x:Key="Color.PanelBg">#111623</Color>
+    <Color x:Key="Color.PanelBgAlt">#0E1320</Color>
+    <Color x:Key="Color.InputBg">#0B0F19</Color>
+    <Color x:Key="Color.Border">#232B3B</Color>
+    <Color x:Key="Color.BorderSubtle">#1A2130</Color>
+    <Color x:Key="Color.Text">#D6DCE6</Color>
+    <Color x:Key="Color.TextMuted">#7C8798</Color>
+    <Color x:Key="Color.TextFaint">#4E5768</Color>
+    <Color x:Key="Color.ButtonBg">#171E2C</Color>
+    <Color x:Key="Color.ButtonBgHover">#1E2637</Color>
+    <Color x:Key="Color.ButtonBgPressed">#0E1320</Color>
+    <Color x:Key="Color.Success">#3FBF7F</Color>
+    <Color x:Key="Color.Danger">#E5534B</Color>
+
+    <!-- Log-line category colors: purely for telling apart different kinds of log
+         entries at a glance (process detection, attach, title art, etc.) - not tied to
+         the accent theme, so these stay fixed regardless of which theme is selected. -->
+    <Color x:Key="Color.LogOrange">#F2994A</Color>
+    <Color x:Key="Color.LogBabyBlue">#8ECDF0</Color>
+    <Color x:Key="Color.LogYellow">#F2E94E</Color>
+    <Color x:Key="Color.LogTeal">#3FBFB0</Color>
+    <Color x:Key="Color.LogForestGreen">#4CAF6E</Color>
+    <Color x:Key="Color.LogMagenta">#E14FD9</Color>
+
+    <SolidColorBrush x:Key="Brush.LogOrange" Color="{StaticResource Color.LogOrange}"/>
+    <SolidColorBrush x:Key="Brush.LogBabyBlue" Color="{StaticResource Color.LogBabyBlue}"/>
+    <SolidColorBrush x:Key="Brush.LogYellow" Color="{StaticResource Color.LogYellow}"/>
+    <SolidColorBrush x:Key="Brush.LogTeal" Color="{StaticResource Color.LogTeal}"/>
+    <SolidColorBrush x:Key="Brush.LogForestGreen" Color="{StaticResource Color.LogForestGreen}"/>
+    <SolidColorBrush x:Key="Brush.LogMagenta" Color="{StaticResource Color.LogMagenta}"/>
+
+    <!-- Scrollbar thumb: a distinct steel-blue-gray, visibly lighter than the general
+         border color, since the scrollbar is meant to read as its own solid pill rather
+         than a barely-there hint like the rest of this app's subtle borders. -->
+    <Color x:Key="Color.ScrollThumb">#59698A</Color>
+    <Color x:Key="Color.ScrollThumbHover">#7284AD</Color>
+    <SolidColorBrush x:Key="Brush.ScrollThumb" Color="{StaticResource Color.ScrollThumb}"/>
+    <SolidColorBrush x:Key="Brush.ScrollThumbHover" Color="{StaticResource Color.ScrollThumbHover}"/>
+
+    <SolidColorBrush x:Key="Brush.WindowBg" Color="{StaticResource Color.WindowBg}"/>
+    <SolidColorBrush x:Key="Brush.PanelBg" Color="{StaticResource Color.PanelBg}"/>
+    <SolidColorBrush x:Key="Brush.PanelBgAlt" Color="{StaticResource Color.PanelBgAlt}"/>
+    <SolidColorBrush x:Key="Brush.InputBg" Color="{StaticResource Color.InputBg}"/>
+    <SolidColorBrush x:Key="Brush.Border" Color="{StaticResource Color.Border}"/>
+    <SolidColorBrush x:Key="Brush.BorderSubtle" Color="{StaticResource Color.BorderSubtle}"/>
+    <SolidColorBrush x:Key="Brush.Text" Color="{StaticResource Color.Text}"/>
+    <SolidColorBrush x:Key="Brush.TextMuted" Color="{StaticResource Color.TextMuted}"/>
+    <SolidColorBrush x:Key="Brush.TextFaint" Color="{StaticResource Color.TextFaint}"/>
+    <SolidColorBrush x:Key="Brush.ButtonBg" Color="{StaticResource Color.ButtonBg}"/>
+    <SolidColorBrush x:Key="Brush.ButtonBgHover" Color="{StaticResource Color.ButtonBgHover}"/>
+    <SolidColorBrush x:Key="Brush.ButtonBgPressed" Color="{StaticResource Color.ButtonBgPressed}"/>
+    <SolidColorBrush x:Key="Brush.Success" Color="{StaticResource Color.Success}"/>
+    <SolidColorBrush x:Key="Brush.Danger" Color="{StaticResource Color.Danger}"/>
+
+    <!-- AuroraSuite uses a single fixed Forest Green accent (matching XeVator's
+         default theme) rather than XeVator's full swappable theme dropdown - these
+         three are the only accent values in the app. -->
+    <Color x:Key="Color.Accent">#4CAF6E</Color>
+    <Color x:Key="Color.AccentHover">#6FC98C</Color>
+    <Color x:Key="Color.AccentPressed">#3E8F59</Color>
+    <SolidColorBrush x:Key="Brush.Accent" Color="{StaticResource Color.Accent}"/>
+    <SolidColorBrush x:Key="Brush.AccentHover" Color="{StaticResource Color.AccentHover}"/>
+    <SolidColorBrush x:Key="Brush.AccentPressed" Color="{StaticResource Color.AccentPressed}"/>
+    <SolidColorBrush x:Key="Brush.AccentText" Color="#0B0E14"/>
+
+</ResourceDictionary>
