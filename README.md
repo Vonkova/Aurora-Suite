@@ -36,3 +36,8 @@ From there you can jump back to the Sync tab and push it all to your console.
 
 <img width="1075" height="896" alt="Conversion" src="https://github.com/user-attachments/assets/c108829e-f7cd-4fdf-ad1f-079d4d7b00d3" />
 
+
+
+Xbox 360 Game Covers ripped from XboxUnity.net
+By /u/DaCukiMonsta, Complete as of 28th Feb 2021
+Raw covers converted to .assets by Vonkova 7/14/2026
