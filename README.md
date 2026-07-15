@@ -30,3 +30,9 @@ Once you've got what you want, tick the asset types you're converting and hit **
 The output folder will look like `TitleID\*.asset` files.
 
 From there you can jump back to the Sync tab and push it all to your console.
+
+<img width="1920" height="1080" alt="Transfering" src="https://github.com/user-attachments/assets/0271978a-c8d1-4e02-ac38-6f429409e474" />
+
+
+<img width="1075" height="896" alt="Conversion" src="https://github.com/user-attachments/assets/c108829e-f7cd-4fdf-ad1f-079d4d7b00d3" />
+
