@@ -31,10 +31,16 @@ The output folder will look like `TitleID\*.asset` files.
 
 From there you can jump back to the Sync tab and push it all to your console.
 
-<img width="1920" height="1080" alt="Transfering" src="https://github.com/user-attachments/assets/0271978a-c8d1-4e02-ac38-6f429409e474" />
+https://youtu.be/JqpkoovPHkw
+
+<img width="1486" height="893" alt="1" src="https://github.com/user-attachments/assets/6607d100-e659-40f8-a8b8-4c3d0d42919d" />
+<img width="1486" height="893" alt="2" src="https://github.com/user-attachments/assets/af8a3d19-eded-43dd-b11c-9ccc0fd7a736" />
+<img width="1486" height="893" alt="3" src="https://github.com/user-attachments/assets/b9372afa-f1b4-4317-9678-e2971097b54a" />
+<img width="1486" height="893" alt="4" src="https://github.com/user-attachments/assets/101f34df-767d-4a2e-970d-af0ae3e37f82" />
+<img width="1472" height="880" alt="5" src="https://github.com/user-attachments/assets/bcb48e04-4a1a-49b4-b1c3-8dd74f3cacd7" />
 
 
-<img width="1075" height="896" alt="Conversion" src="https://github.com/user-attachments/assets/c108829e-f7cd-4fdf-ad1f-079d4d7b00d3" />
+
 
 
 ```
