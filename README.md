@@ -31,7 +31,10 @@ The output folder will look like `TitleID\*.asset` files.
 
 From there you can jump back to the Sync tab and push it all to your console.
 
+Video Demo:
 https://youtube/JqpkoovPHkw
+
+Photos:
 
 <img width="1486" height="893" alt="1" src="https://github.com/user-attachments/assets/6607d100-e659-40f8-a8b8-4c3d0d42919d" />
 <img width="1486" height="893" alt="2" src="https://github.com/user-attachments/assets/af8a3d19-eded-43dd-b11c-9ccc0fd7a736" />
