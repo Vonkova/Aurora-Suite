@@ -1,3 +1,7 @@
+<img width="1942" height="809" alt="ChatGPT Image Jul 15, 2026, 10_49_33 PM" src="https://github.com/user-attachments/assets/b9de1417-359b-4d8f-b27c-e98136dac65d" />
+
+
+
 # Aurora Suite
 
 An offline Aurora boxart/asset installer.
