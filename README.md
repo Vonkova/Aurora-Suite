@@ -45,6 +45,7 @@ Photos:
 <img width="1486" height="893" alt="3" src="https://github.com/user-attachments/assets/b9372afa-f1b4-4317-9678-e2971097b54a" />
 <img width="1486" height="893" alt="4" src="https://github.com/user-attachments/assets/101f34df-767d-4a2e-970d-af0ae3e37f82" />
 <img width="1472" height="880" alt="5" src="https://github.com/user-attachments/assets/bcb48e04-4a1a-49b4-b1c3-8dd74f3cacd7" />
+<img width="686" height="856" alt="skins" src="https://github.com/user-attachments/assets/f5d94325-459d-4bf4-9bab-178f86847cba" />
 
 
 
