@@ -43,7 +43,7 @@ The output folder will look like `TitleID\*.asset` files.
 From there you can jump back to the Sync tab and push it all to your console.
 
 Video Demo:
-https://youtube/JqpkoovPHkw
+[https://youtube/JqpkoovPHkw](https://www.youtube.com/watch?v=JqpkoovPHkw&t=1s)
 
 Photos:
 
