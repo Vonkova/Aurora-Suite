@@ -14,7 +14,14 @@ The GUI isn't winning any design awards, but it's simple to use. This is mainly 
 
 Point it at that library and hit **Load Library**. The app scans your game assets and lists everything in a grid, where you can pick exactly which Title IDs you want to transfer.
 
-**Image Assets tab** - this is where you can build/customize your own asset library instead. Set your source folder (e.g. `Covers\`) and the tool auto-detects every Title ID inside it and converts them all. Works with either a single folder or a whole batch of them - your call.
+**Image Assets tab** - this is where you can build/customize your own asset library instead. Set your source folder (e.g. `Covers\`) and the tool auto-detects every Title ID inside it and converts them all. Works with either a single folder or a whole batch of them - your call. 
+Update: There has been some improvments such as hooking into the Content.db and sorting by grid#, Title ID, Fuzzy Matching via text and Media ID. This means it now can sort titles that use 00000000 TItle ID.
+There is also a custom Cover art generator using templates for the cover headers and footers. See below for photos.
+
+**Title Update*** - This is a W.I.P but it does work. What doesn't work is enabling them in Aurora. But they do get installed to your console. More testing needs to be done here but it works. Region filtering is pretty acurate but still has some hickups.
+
+**Skins** - This tab will allow you to load your skins and see them with a preview. This will also allow you to change it in realtime. However this will require you to setup your paths as it uses an executable to get out of Aurora to patch the database then it will relaunch Aurora automatically. 
+
 
 The folder structure matters though, it has to follow this layout:
 
@@ -46,6 +53,10 @@ Photos:
 <img width="1486" height="893" alt="4" src="https://github.com/user-attachments/assets/101f34df-767d-4a2e-970d-af0ae3e37f82" />
 <img width="1472" height="880" alt="5" src="https://github.com/user-attachments/assets/bcb48e04-4a1a-49b4-b1c3-8dd74f3cacd7" />
 <img width="686" height="856" alt="skins" src="https://github.com/user-attachments/assets/f5d94325-459d-4bf4-9bab-178f86847cba" />
+<img width="1486" height="893" alt="image" src="https://github.com/user-attachments/assets/dae73fde-3796-4331-a9e6-cfd3e213dcca" />
+<img width="1486" height="893" alt="image" src="https://github.com/user-attachments/assets/37ff3d76-bc75-4f10-9ca4-9e6ed5dd530f" />
+<img width="1486" height="893" alt="image" src="https://github.com/user-attachments/assets/c83184ee-f190-4773-85eb-f2a5e40e5d1b" />
+
 
 
 
@@ -55,5 +66,7 @@ Photos:
 Xbox 360 Game Covers ripped from XboxUnity.net
 By /u/DaCukiMonsta, Complete as of 28th Feb 2021
 Raw covers converted to .assets by Vonkova 7/14/2026
+
+Cover Templates by kira125
 ```
 
