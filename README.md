@@ -10,17 +10,17 @@ The GUI isn't winning any design awards, but it's simple to use. This is mainly 
 
 ## How it works
 
-**Sync tab** - this is where you set your console's GameData path and point the tool at your local asset library. I've included a premade library you're welcome to use.
+***Sync tab*** - this is where you set your console's GameData path and point the tool at your local asset library. I've included a premade library you're welcome to use.
 
 Point it at that library and hit **Load Library**. The app scans your game assets and lists everything in a grid, where you can pick exactly which Title IDs you want to transfer.
 
-**Image Assets tab** - this is where you can build/customize your own asset library instead. Set your source folder (e.g. `Covers\`) and the tool auto-detects every Title ID inside it and converts them all. Works with either a single folder or a whole batch of them - your call. 
+***Image Assets tab*** - this is where you can build/customize your own asset library instead. Set your source folder (e.g. `Covers\`) and the tool auto-detects every Title ID inside it and converts them all. Works with either a single folder or a whole batch of them - your call. 
 Update: There has been some improvments such as hooking into the Content.db and sorting by grid#, Title ID, Fuzzy Matching via text and Media ID. This means it now can sort titles that use 00000000 TItle ID.
 There is also a custom Cover art generator using templates for the cover headers and footers. See below for photos.
 
-**Title Update*** - This is a W.I.P but it does work. What doesn't work is enabling them in Aurora. But they do get installed to your console. More testing needs to be done here but it works. Region filtering is pretty acurate but still has some hickups.
+***Title Update*** - This is a W.I.P but it does work. What doesn't work is enabling them in Aurora. But they do get installed to your console. More testing needs to be done here but it works. Region filtering is pretty acurate but still has some hickups.
 
-**Skins** - This tab will allow you to load your skins and see them with a preview. This will also allow you to change it in realtime. However this will require you to setup your paths as it uses an executable to get out of Aurora to patch the database then it will relaunch Aurora automatically. 
+***Skins*** - This tab will allow you to load your skins and see them with a preview. This will also allow you to change it in realtime. However this will require you to setup your paths as it uses an executable to get out of Aurora to patch the database then it will relaunch Aurora automatically. 
 
 
 The folder structure matters though, it has to follow this layout:
